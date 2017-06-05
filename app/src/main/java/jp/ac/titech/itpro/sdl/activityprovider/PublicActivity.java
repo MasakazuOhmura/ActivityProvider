@@ -1,8 +1,10 @@
 package jp.ac.titech.itpro.sdl.activityprovider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,9 +18,19 @@ public class PublicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public);
-        requestView = (TextView)findViewById(R.id.request_view);
-        answerGroup = (RadioGroup)findViewById(R.id.answer_group);
+        requestView = (TextView) findViewById(R.id.request_view);
+        answerGroup = (RadioGroup) findViewById(R.id.answer_group);
         answerGroup.check(R.id.answer_1);
+
+        Intent intent = getIntent();
+
+        // アプリ内遷移時はnullになる
+        Uri uri = intent.getData();
+        if (uri != null) {
+            Log.d("data", uri.toString());
+            String extraValue = intent.getStringExtra("MY_KEY");
+            Log.d("data", extraValue);
+        }
     }
 
     @Override
